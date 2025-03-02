@@ -1,10 +1,7 @@
-// <!--GAMFC-->version base on commit 841ed4e9ff121dde0ed6a56ae800c2e6c4f66056, time is 2024-04-16 18:02:37 UTC<!--GAMFC-END-->.
-// @ts-ignore
+
 import { connect } from 'cloudflare:sockets';
 
-// How to generate your own UUID:
-// [Windows] Press "Win + R", input cmd and run:  Powershell -NoExit -Command "[guid]::NewGuid()"
-let userID = '847b4a0f-b30e-4ce1-b629-cf69f30e5dcd';
+let userID = '23f5e7f4-b14b-4830-b6c8-82ff917ca2de';
 
 let proxyIP = '';
 
@@ -14,12 +11,7 @@ if (!isValidUUID(userID)) {
 }
 
 export default {
-	/**
-	 * @param {import("@cloudflare/workers-types").Request} request
-	 * @param {{UUID: string, PROXYIP: string}} env
-	 * @param {import("@cloudflare/workers-types").ExecutionContext} ctx
-	 * @returns {Promise<Response>}
-	 */
+
 	async fetch(request, env, ctx) {
 		try {
 			userID = env.UUID || userID;
@@ -155,18 +147,7 @@ async function vlessOverWSHandler(request) {
 	});
 }
 
-/**
- * Handles outbound TCP connections.
- *
- * @param {any} remoteSocket 
- * @param {string} addressRemote The remote address to connect to.
- * @param {number} portRemote The remote port to connect to.
- * @param {Uint8Array} rawClientData The raw client data to write.
- * @param {import("@cloudflare/workers-types").WebSocket} webSocket The WebSocket to pass the remote socket to.
- * @param {Uint8Array} vlessResponseHeader The VLESS response header.
- * @param {function} log The logging function.
- * @returns {Promise<void>} The remote socket.
- */
+
 async function handleTCPOutBound(remoteSocket, addressRemote, portRemote, rawClientData, webSocket, vlessResponseHeader, log,) {
 	async function connectAndWrite(address, port) {
 		/** @type {import("@cloudflare/workers-types").Socket} */
@@ -267,15 +248,6 @@ function makeReadableWebSocketStream(webSocketServer, earlyDataHeader, log) {
 
 }
 
-// https://xtls.github.io/development/protocols/vless.html
-// https://github.com/zizifn/excalidraw-backup/blob/main/v2ray-protocol.excalidraw
-
-/**
- * 
- * @param { ArrayBuffer} vlessBuffer 
- * @param {string} userID 
- * @returns 
- */
 function processVlessHeader(
 	vlessBuffer,
 	userID
@@ -389,14 +361,7 @@ function processVlessHeader(
 }
 
 
-/**
- * 
- * @param {import("@cloudflare/workers-types").Socket} remoteSocket 
- * @param {import("@cloudflare/workers-types").WebSocket} webSocket 
- * @param {ArrayBuffer} vlessResponseHeader 
- * @param {(() => Promise<void>) | null} retry
- * @param {*} log 
- */
+
 async function remoteSocketToWS(remoteSocket, webSocket, vlessResponseHeader, retry, log) {
 	// remote--> ws
 	let remoteChunkCount = 0;
@@ -593,12 +558,7 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
 	};
 }
 
-/**
- * 
- * @param {string} userID 
- * @param {string | null} hostName
- * @returns {string}
- */
+
 function getVLESSConfig(userID, hostName) {
 	const vlessMain = `vless://${userID}\u0040${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#%F0%9F%94%B7%EF%B8%8F+%D9%87%D9%85%D9%87+%D8%A7%D9%BE%D8%B1%D8%A7%D8%AA%D9%88%D8%B1%D9%87%D8%A7+%F0%9F%94%B9%EF%B8%8F+%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF%DB%8C%F0%9F%94%B7%EF%B8%8F`
 	return ` ${vlessMain}`;
