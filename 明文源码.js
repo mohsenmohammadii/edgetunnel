@@ -1,7 +1,7 @@
 
 import { connect } from 'cloudflare:sockets';
 
-let userID = '23f5e7f4-b14b-4830-b6c8-82ff917ca2de';
+let userID = '71d3acfb-8d39-4a87-9be0-013341edc9ac';
 
 let proxyIP = '';
 
@@ -563,3 +563,4 @@ function getVLESSConfig(userID, hostName) {
 	const vlessMain = `vless://${userID}\u0040${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#%F0%9F%94%B7%EF%B8%8F+%D9%87%D9%85%D9%87+%D8%A7%D9%BE%D8%B1%D8%A7%D8%AA%D9%88%D8%B1%D9%87%D8%A7+%F0%9F%94%B9%EF%B8%8F+%D9%BE%DB%8C%D8%B4%D9%86%D9%87%D8%A7%D8%AF%DB%8C%F0%9F%94%B7%EF%B8%8F`
 	return ` ${vlessMain}`;
 }
+
